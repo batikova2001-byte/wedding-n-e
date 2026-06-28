@@ -1,0 +1,423 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:#f8f4ef;
+color:#2f2b28;
+overflow-x:hidden;
+}
+
+.hidden{
+display:none;
+}
+
+.overlay,
+.hero{
+background:
+linear-gradient(
+rgba(248,244,239,0.55),
+rgba(248,244,239,0.75)
+),
+url('image.png');
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+}
+
+.overlay{
+position:fixed;
+inset:0;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+transition:1s;
+}
+
+.overlay.hide{
+opacity:0;
+visibility:hidden;
+}
+
+.overlay-text{
+margin-bottom:30px;
+letter-spacing:3px;
+font-size:12px;
+text-transform:uppercase;
+}
+
+.heart-button{
+width:110px;
+height:110px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(10px);
+font-size:40px;
+}
+
+.music-button{
+position:fixed;
+right:20px;
+bottom:20px;
+z-index:999;
+width:60px;
+height:60px;
+border:none;
+border-radius:50%;
+background:white;
+cursor:pointer;
+}
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+}
+
+.hero-content{
+max-width:900px;
+}
+
+.subtitle{
+letter-spacing:4px;
+margin-bottom:20px;
+font-size:12px;
+text-transform:uppercase;
+}
+
+.hero h1{
+font-family:'Cormorant Garamond',serif;
+font-size:110px;
+font-weight:400;
+line-height:0.95;
+margin-bottom:20px;
+}
+
+.date{
+font-size:24px;
+margin-bottom:30px;
+}
+
+.guest-title{
+font-size:22px;
+margin-bottom:40px;
+}
+
+.countdown{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.count-item{
+width:120px;
+height:120px;
+border-radius:50%;
+background:rgba(255,255,255,0.45);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.count-number{
+font-size:42px;
+font-family:'Cormorant Garamond',serif;
+}
+
+.section{
+padding:120px 20px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+}
+
+.section-title{
+font-family:'Cormorant Garamond',serif;
+font-size:60px;
+font-weight:400;
+text-align:center;
+margin-bottom:40px;
+}
+
+.section-subtitle{
+max-width:760px;
+margin:auto;
+text-align:center;
+line-height:1.9;
+font-size:17px;
+}
+
+.card{
+background:rgba(255,255,255,0.6);
+border-radius:30px;
+padding:60px;
+backdrop-filter:blur(10px);
+}
+
+.location-card{
+display:block;
+position:relative;
+overflow:hidden;
+border-radius:30px;
+margin-top:30px;
+text-decoration:none;
+color:white;
+}
+
+.location-card img{
+width:100%;
+display:block;
+}
+
+.location-overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.3);
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+padding:30px;
+}
+
+.location-name{
+font-size:42px;
+font-family:'Cormorant Garamond',serif;
+}
+
+.timeline{
+display:grid;
+gap:20px;
+}
+
+.timeline-item{
+background:white;
+padding:30px;
+border-radius:24px;
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+.timeline-time{
+font-size:42px;
+font-family:'Cormorant Garamond',serif;
+}
+
+.form-wrapper{
+max-width:760px;
+margin:auto;
+}
+
+.form-group{
+margin-bottom:25px;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:16px;
+border-radius:16px;
+border:1px solid #ddd;
+font-size:15px;
+font-family:inherit;
+}
+
+.checkbox-group{
+display:grid;
+gap:10px;
+margin-top:15px;
+}
+
+.button{
+display:inline-block;
+padding:16px 34px;
+border-radius:999px;
+border:1px solid #8f7f71;
+text-decoration:none;
+background:transparent;
+color:#2f2b28;
+cursor:pointer;
+margin:5px;
+}
+
+.organizer-buttons{
+margin-top:30px;
+}
+
+.success-message{
+text-align:center;
+font-size:22px;
+line-height:1.8;
+}
+
+.footer{
+padding:80px 20px;
+text-align:center;
+opacity:0.7;
+}
+
+/* =========================
+   PREMIUM REVEAL ANIMATION
+========================= */
+
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* мягкий stagger эффект для внутренних элементов */
+.section-title,
+.section-subtitle,
+.timeline-item,
+.card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.show .section-title,
+.show .section-subtitle,
+.show .timeline-item,
+.show .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* задержки для "дорогого" ощущения */
+.show .section-title { transition-delay: 0.1s; }
+.show .section-subtitle { transition-delay: 0.2s; }
+.show .card { transition-delay: 0.3s; }
+.show .timeline-item { transition-delay: 0.15s; }
+
+/* hover micro-interactions */
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: scale(1.02);
+  transition: 0.3s ease;
+}
+
+/* location image polish */
+.location-card img {
+  transition: transform 0.6s ease;
+}
+
+.location-card:hover img {
+  transform: scale(1.03);
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:64px;
+}
+
+.section-title{
+font-size:42px;
+}
+
+.count-item{
+width:90px;
+height:90px;
+}
+
+.card{
+padding:30px 20px;
+}
+
+.timeline-item{
+flex-direction:column;
+text-align:center;
+}
+
+}
+/* =========================
+   PREMIUM REVEAL ANIMATION
+========================= */
+
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: opacity, transform;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* мягкий stagger эффект для внутренних элементов */
+.section-title,
+.section-subtitle,
+.timeline-item,
+.card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.show .section-title,
+.show .section-subtitle,
+.show .timeline-item,
+.show .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* задержки для "дорогого" ощущения */
+.show .section-title { transition-delay: 0.1s; }
+.show .section-subtitle { transition-delay: 0.2s; }
+.show .card { transition-delay: 0.3s; }
+.show .timeline-item { transition-delay: 0.15s; }
+
+/* hover micro-interactions */
+.card:hover {
+  transform: translateY(-4px);
+  transition: 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: scale(1.02);
+  transition: 0.3s ease;
+}
+
+/* location image polish */
+.location-card img {
+  transition: transform 0.6s ease;
+}
+
+.location-card:hover img {
+  transform: scale(1.03);
+}
