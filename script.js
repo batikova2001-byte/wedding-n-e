@@ -1,116 +1,161 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbwpVwDtilgJhHD0J7DnQHpHI-nC9NEa4aI6vscup1pJsc6WKLs1whR6SNE_slYFnypb/exec";
 
-/* =========================
-   STATE
-========================= */
+/* =====================================
+   GLOBAL VARIABLES
+===================================== */
 
+let currentGuest = null;
 let currentGuestSlug = null;
-let guestAttendance = null;
 let formLocked = false;
 
-/* =========================
-   OVERLAY + MUSIC
-========================= */
+/* =====================================
+   OVERLAY
+===================================== */
 
-const overlay = document.getElementById('overlay');
-const openButton = document.getElementById('openButton');
-const audio = document.getElementById('audio');
+const overlay = document.getElementById("overlay");
+const openButton = document.getElementById("openButton");
+const audio = document.getElementById("audio");
 
-if (openButton && overlay) {
-  openButton.addEventListener('click', () => {
-    overlay.style.transition = "1.2s ease";
-    overlay.style.opacity = 0;
+if (overlay && openButton) {
 
-    setTimeout(() => {
-      overlay.style.display = "none";
-    }, 1200);
+  openButton.addEventListener("click", () => {
 
-    audio?.play().catch(() => {});
+    overlay.classList.add("hide");
+
+    if (audio) {
+      audio.play().catch(() => {});
+    }
+
   });
+
 }
 
-const musicButton = document.getElementById('musicButton');
+/* =====================================
+   MUSIC
+===================================== */
+
+const musicButton = document.getElementById("musicButton");
 
 if (musicButton && audio) {
-  musicButton.addEventListener('click', () => {
-    if (audio.paused) audio.play();
-    else audio.pause();
+
+  musicButton.addEventListener("click", () => {
+
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+
   });
+
 }
 
-/* =========================
+/* =====================================
    COUNTDOWN
-========================= */
+===================================== */
 
-const targetDate = new Date('2026-10-24T00:00:00').getTime();
+const targetDate = new Date("2026-10-24T00:00:00").getTime();
 
 function updateCountdown() {
-  const d = document.getElementById('days');
-  const h = document.getElementById('hours');
-  const m = document.getElementById('minutes');
-  const s = document.getElementById('seconds');
 
-  if (!d || !h || !m || !s) return;
+  const distance = targetDate - Date.now();
 
-  const now = Date.now();
-  const distance = targetDate - now;
+  if (distance < 0) return;
 
-  if (distance <= 0) return;
+  document.getElementById("days").textContent =
+    Math.floor(distance / (1000 * 60 * 60 * 24));
 
-  d.innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-  h.innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  m.innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  s.innerText = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("hours").textContent =
+    Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  document.getElementById("minutes").textContent =
+    Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+  document.getElementById("seconds").textContent =
+    Math.floor((distance % (1000 * 60)) / 1000);
+
 }
 
-setInterval(updateCountdown, 1000);
 updateCountdown();
+setInterval(updateCountdown,1000);
 
-/* =========================
-   GUEST LOAD
-========================= */
+/* =====================================
+   LOAD GUEST
+===================================== */
 
-async function loadGuest() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get('guest');
+async function loadGuest(){
 
-    currentGuestSlug = slug;
+  try{
 
-    const greetingEl = document.getElementById('guestGreeting');
-    const form = document.getElementById('weddingForm');
-    const success = document.getElementById('successMessage');
+    const params=new URLSearchParams(location.search);
 
-    if (!slug) return;
+    currentGuestSlug=params.get("guest");
 
-    const res = await fetch(`${API_URL}?guest=${slug}`);
-    const data = await res.json();
+    if(!currentGuestSlug){
 
-    if (!data.success || !data.guest) return;
-
-    const name = data.guest.displayName || "Гость";
-    guestAttendance = data.guest.attendance || null;
-
-    if (greetingEl) {
-      greetingEl.innerText = "Дорогие " + name;
-    }
-
-    /* =========================
-       ALREADY ANSWERED
-    ========================= */
-
-    if (data.guest.answered === true) {
-      lockFormFinal();
+      showNeutralInvitation();
       return;
+
     }
 
-    /* RSVP INIT */
-    initRSVPFlow();
+    const response=await fetch(
+      API_URL+"?guest="+encodeURIComponent(currentGuestSlug)
+    );
 
-  } catch (e) {
-    console.error("Guest load error:", e);
+    const data=await response.json();
+
+    if(!data.success){
+
+      showNeutralInvitation();
+      return;
+
+    }
+
+    currentGuest=data.guest;
+
+    const greeting=document.getElementById("guestGreeting");
+
+    if(greeting){
+
+      greeting.innerHTML=
+      "Дорогие <strong>"+currentGuest.displayName+"</strong>";
+
+    }
+
+    if(currentGuest.answered){
+
+      lockFormFinal();
+
+      return;
+
+    }
+
+    renderRSVPForm();
+
   }
+
+  catch(error){
+
+    console.error(error);
+
+    showNeutralInvitation();
+
+  }
+
+}
+
+function showNeutralInvitation(){
+
+  const greeting=document.getElementById("guestGreeting");
+
+  if(greeting){
+
+    greeting.innerHTML=
+      "Мы будем счастливы видеть Вас";
+
+  }
+
 }
 
 loadGuest();
@@ -119,124 +164,332 @@ loadGuest();
    RSVP FLOW INIT
 ========================= */
 
-function initRSVPFlow() {
-  const attendanceSelect = document.getElementById('attendance');
-  const form = document.getElementById('weddingForm');
+/* =====================================
+   RENDER RSVP FORM
+===================================== */
 
-  if (!attendanceSelect || !form) return;
+function renderRSVPForm() {
 
-  toggleAttendanceUI(attendanceSelect.value);
+  const form = document.getElementById("weddingForm");
 
-  attendanceSelect.addEventListener('change', (e) => {
-    toggleAttendanceUI(e.target.value);
-  });
+  if (!form) return;
+
+  form.innerHTML = `
+
+<div class="guest-name">
+<b>${currentGuest.displayName}</b>
+</div>
+
+<div class="form-group">
+<label>Будете ли присутствовать?</label>
+
+<select id="attendance">
+
+<option value="Да">Да</option>
+
+<option value="Нет">Нет</option>
+
+</select>
+</div>
+
+<div id="attendanceFields">
+
+<div class="form-group">
+
+<label>
+Нужен ли трансфер из Зеленокумска?
+</label>
+
+<select id="transfer">
+
+<option value="Нет">Нет</option>
+<option value="Да">Да</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Планируете ли брать детей?
+</label>
+
+<select id="childrenSelect">
+
+<option value="Нет">Нет</option>
+<option value="Да">Да</option>
+
+</select>
+
+</div>
+
+<div
+class="form-group"
+id="childrenBlock"
+style="display:none;"
+>
+
+<label>
+Количество детей
+</label>
+
+<input
+type="number"
+id="childrenCount"
+min="1"
+value="1"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Что планируете пить?
+</label>
+
+<div class="checkbox-group">
+
+<label><input type="checkbox" value="Вино красное"> Вино красное</label>
+
+<label><input type="checkbox" value="Вино белое"> Вино белое</label>
+
+<label><input type="checkbox" value="Шампанское"> Шампанское</label>
+
+<label><input type="checkbox" value="Коньяк"> Коньяк</label>
+
+<label><input type="checkbox" value="Водка"> Водка</label>
+
+<label><input type="checkbox" value="HomeMade"> HomeMade</label>
+
+<label><input type="checkbox" value="Безалкогольные напитки"> Безалкогольные напитки</label>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Есть ли непереносимость продуктов?
+</label>
+
+<textarea
+id="allergy"
+rows="4"
+></textarea>
+
+</div>
+
+</div>
+
+<div style="text-align:center;margin-top:40px;">
+
+<button
+class="button"
+type="submit"
+>
+
+Отправить ответ
+
+</button>
+
+</div>
+
+`;
+
+  initRSVPEvents();
+
+}
+/* =====================================
+   RSVP EVENTS
+===================================== */
+
+function initRSVPEvents(){
+
+const attendance=document.getElementById("attendance");
+
+const attendanceFields=document.getElementById("attendanceFields");
+
+const children=document.getElementById("childrenSelect");
+
+const childrenBlock=document.getElementById("childrenBlock");
+
+attendance.addEventListener("change",()=>{
+
+if(attendance.value==="Нет"){
+
+attendanceFields.style.display="none";
+
+}else{
+
+attendanceFields.style.display="block";
+
 }
 
+});
+
+children.addEventListener("change",()=>{
+
+if(children.value==="Да"){
+
+childrenBlock.style.display="block";
+
+}else{
+
+childrenBlock.style.display="none";
+
+}
+
+});
+
+}
 /* =========================
    SHOW / HIDE FORM LOGIC
 ========================= */
 
-function toggleAttendanceUI(value) {
-  const form = document.getElementById('weddingForm');
-  const noMessage = document.getElementById('noMessage');
-
-  if (!form) return;
-
-  if (value === "Да") {
-    if (noMessage) noMessage.remove();
-    form.style.display = "block";
-  }
-
-  if (value === "Нет") {
-    form.style.display = "none";
-
-    if (!noMessage) {
-      const msg = document.createElement('div');
-      msg.id = "noMessage";
-      msg.className = "success-message";
-      msg.innerText =
-        "Нам очень жаль, что у Вас не получится присутствовать на празднике. Если Ваши планы изменятся до 24 сентября 2026 года, пожалуйста, сообщите нам об этом.";
-      form.parentNode.appendChild(msg);
-    }
-  }
-}
-
-/* =========================
+/* =====================================
    FORM SUBMIT
-========================= */
+===================================== */
 
-const form = document.getElementById('weddingForm');
+document.addEventListener("submit", async function (e) {
 
-if (form) {
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
+  if (e.target.id !== "weddingForm") return;
 
-    if (formLocked) return;
+  e.preventDefault();
 
-    const attendance = document.getElementById('attendance')?.value || "";
+  if (formLocked) return;
 
-    let childrenCount = 0;
+  const attendance =
+    document.getElementById("attendance").value;
 
-    if (document.getElementById('childrenSelect')?.value === "Да") {
+  let transfer = "";
+  let children = "";
+  let childrenCount = 0;
+
+  if (attendance === "Да") {
+
+    transfer =
+      document.getElementById("transfer").value;
+
+    children =
+      document.getElementById("childrenSelect").value;
+
+    if (children === "Да") {
+
       childrenCount =
-        parseInt(document.getElementById('childrenCount')?.value || "0");
+        Number(
+          document.getElementById("childrenCount").value
+        );
+
     }
 
-    const drinks = [];
-    document.querySelectorAll('.checkbox-group input:checked')
-      .forEach(el => drinks.push(el.value));
+  }
 
-    const data = {
-      slug: currentGuestSlug,
-      guestName: "", // ИМЯ ТОЛЬКО СЕРВЕРНОЕ
-      attendance,
-      transfer: document.getElementById('transfer')?.value || "",
-      children: document.getElementById('childrenSelect')?.value || "",
-      childrenCount,
-      drinks,
-      allergy: document.getElementById('allergy')?.value || "",
-      userAgent: navigator.userAgent
-    };
+  const drinks = [];
 
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(data)
-      });
+  document
+    .querySelectorAll(".checkbox-group input:checked")
+    .forEach(el => {
 
-      const result = await res.json();
+      drinks.push(el.value);
 
-      if (result.success) {
-        lockFormFinal();
-      } else {
-        alert(result.message || "Ошибка отправки");
-      }
+    });
 
-    } catch (e) {
-      console.error(e);
-      alert("Ошибка сети");
+  const payload = {
+
+    slug: currentGuest.slug,
+
+    attendance,
+
+    transfer,
+
+    children,
+
+    childrenCount,
+
+    drinks,
+
+    allergy:
+      document.getElementById("allergy").value,
+
+    userAgent:
+      navigator.userAgent
+
+  };
+
+  try {
+
+    const response = await fetch(API_URL, {
+
+      method: "POST",
+
+      headers: {
+
+        "Content-Type": "text/plain"
+
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+    const result =
+      await response.json();
+
+    if (!result.success) {
+
+      alert(result.message);
+
+      return;
+
     }
-  });
-}
 
-/* =========================
-   LOCK UI AFTER SUBMIT
-========================= */
+    lockFormFinal(attendance);
 
-function lockFormFinal() {
+  }
+
+  catch (err) {
+
+    console.error(err);
+
+    alert("Ошибка отправки формы");
+
+  }
+
+});
+
+function lockFormFinal(attendance = "Да") {
+
   formLocked = true;
 
-  const form = document.getElementById('weddingForm');
-  const success = document.getElementById('successMessage');
+  const form =
+    document.getElementById("weddingForm");
 
-  if (form) form.style.display = "none";
+  const success =
+    document.getElementById("successMessage");
 
-  if (success) {
-    success.classList.remove('hidden');
-    success.innerText =
-      "Ваш ответ отправлен. Ждём Вас на нашем празднике ❤️";
+  form.style.display = "none";
+
+  success.classList.remove("hidden");
+
+  if (attendance === "Да") {
+
+    success.innerHTML =
+
+      "Ваш ответ отправлен.<br><br>Ждём Вас на нашем празднике ❤️";
+
   }
+
+  else {
+
+    success.innerHTML =
+
+      "Спасибо, что сообщили нам о своём решении.<br><br>Нам очень жаль, что у Вас не получится разделить этот день вместе с нами. Если Ваши планы изменятся, мы будем искренне рады видеть Вас на нашем празднике.";
+
+  }
+
 }
 /* =========================
    SCROLL REVEAL SYSTEM
