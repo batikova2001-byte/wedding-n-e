@@ -3,8 +3,8 @@
 
 <head>
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Николай & Елизавета — Wedding Day</title>
 
@@ -19,94 +19,166 @@
 
 <body>
 
-<!-- OVERLAY -->
+<!-- =====================================
+OVERLAY
+===================================== -->
+
 <div class="overlay" id="overlay">
 
-<div class="overlay-text">
-Нажмите на сердце, чтобы открыть приглашение
+    <div class="overlay-text">
+        Нажмите на сердце, чтобы открыть приглашение
+    </div>
+
+    <button class="heart-button" id="openButton">
+        <div class="heart">♥</div>
+    </button>
+
 </div>
 
-<button class="heart-button" id="openButton">
-<div class="heart">♥</div>
+<!-- =====================================
+MUSIC
+===================================== -->
+
+<button class="music-button" id="musicButton">
+♫
 </button>
 
-</div>
-
-<!-- MUSIC -->
-<button class="music-button" id="musicButton">♫</button>
-
 <audio id="audio" loop>
-<source src="music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- =========================
- HERO (1 экран)
-========================= -->
+<!-- =====================================
+HERO
+===================================== -->
 
 <section class="hero">
 
-<div class="hero-content">
+    <div class="hero-content">
 
-<div class="subtitle">
-Wedding Day
-</div>
+        <div class="subtitle">
+            Wedding Day
+        </div>
 
-<h1>
-Николай <br>&<br> Елизавета
-</h1>
+        <h1>
+            Николай
+            <br>
+            &
+            <br>
+            Елизавета
+        </h1>
 
-<!-- НОВОЕ: изображение первого экрана -->
-<div class="hero-image">
-<img src="image_1.png" alt="Wedding" />
-</div>
+        <div class="hero-image">
 
-</div>
+            <img
+                src="image_1.png"
+                alt="Николай и Елизавета">
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- =========================
- SECOND SCREEN (новый)
-========================= -->
+<!-- =====================================
+SECOND SCREEN
+===================================== -->
 
 <section class="section fade">
 
 <div class="container">
 
 <div class="date">
+
 24 октября 2026
+
 </div>
 
-<div class="guest-title" id="guestGreeting">
+<div
+class="guest-title"
+id="guestGreeting">
+
 Мы будем счастливы видеть Вас
+
 </div>
 
 <p class="section-subtitle">
+
 Приглашаем Вас разделить с нами
 самый счастливый день нашей жизни.
+
+<br><br>
+
 Пусть этот вечер станет наполнен
-теплом, любовью и искренними эмоциями.
+теплом,
+любовью
+и искренними эмоциями.
+
 </p>
 
 <div class="countdown">
 
 <div class="count-item">
-<div class="count-number" id="days">0</div>
-<div class="count-label">дней</div>
+
+<div
+class="count-number"
+id="days">
+
+0
+
+</div>
+
+<div class="count-label">
+дней
+</div>
+
 </div>
 
 <div class="count-item">
-<div class="count-number" id="hours">0</div>
-<div class="count-label">часов</div>
+
+<div
+class="count-number"
+id="hours">
+
+0
+
+</div>
+
+<div class="count-label">
+часов
+</div>
+
 </div>
 
 <div class="count-item">
-<div class="count-number" id="minutes">0</div>
-<div class="count-label">минут</div>
+
+<div
+class="count-number"
+id="minutes">
+
+0
+
+</div>
+
+<div class="count-label">
+минут
+</div>
+
 </div>
 
 <div class="count-item">
-<div class="count-number" id="seconds">0</div>
-<div class="count-label">секунд</div>
+
+<div
+class="count-number"
+id="seconds">
+
+0
+
+</div>
+
+<div class="count-label">
+секунд
+</div>
+
 </div>
 
 </div>
@@ -115,21 +187,33 @@ Wedding Day
 
 </section>
 
+<!-- =====================================
+LOCATION
+===================================== -->
 
-<!-- LOCATION -->
 <section class="section fade">
 
 <div class="container">
 
 <div class="card location">
 
-<h2 class="section-title">Место проведения</h2>
+<h2 class="section-title">
+Место проведения
+</h2>
 
-<a class="location-card"
-href="https://yandex.ru/maps/org/park_rodnik/1300561529/?ll=43.105498%2C44.043211&z=15"
-target="_blank">
+<a
 
-<img src="image_2.png" alt="Локация">
+class="location-card"
+
+href="https://yandex.ru/maps/-/CTE360Or"
+
+target="_blank"
+
+>
+
+<img
+src="image_2.png"
+alt="Парк Родник">
 
 <div class="location-overlay">
 
@@ -145,64 +229,12 @@ target="_blank">
 
 </a>
 
-</div>
-
-</div>
-
-</section>
-
-<!-- PROGRAM -->
-<section class="section fade">
-
-<div class="container">
-
-<h2 class="section-title">Программа дня</h2>
-
-<div class="timeline">
-
-<div class="timeline-item">
-<div class="timeline-time">15:30</div>
-<div class="timeline-text">Сбор гостей и Welcome-зона</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-time">16:00</div>
-<div class="timeline-text">Церемония бракосочетания</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-time">16:30</div>
-<div class="timeline-text">Банкет и праздничный вечер</div>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-time">22:30</div>
-<div class="timeline-text">Финал</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- DRESS CODE -->
-<section class="section fade">
-
-<div class="container">
-
-<div class="card">
-
-<h2 class="section-title">Dress Code</h2>
-
 <p class="section-subtitle">
-Мы не хотим Вас ограничивать и не устанавливаем строгий дресс-код.
-Выбирайте образ, в котором Вам будет комфортно и красиво.
 
-<br><br>
+Нажмите на фотографию,
+чтобы открыть маршрут
+в Яндекс Картах.
 
-Особенно приятно видеть спокойные пастельные оттенки,
-но это совсем не обязательно.
 </p>
 
 </div>
@@ -211,39 +243,206 @@ target="_blank">
 
 </section>
 
-<!-- DETAILS -->
+<!-- =====================================
+PROGRAM
+===================================== -->
+
+<section class="section fade">
+
+<div class="container">
+
+<h2 class="section-title">
+Программа дня
+</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+
+<div class="timeline-time">
+15:30
+</div>
+
+<div class="timeline-text">
+Сбор гостей и Welcome-зона
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-time">
+16:00
+</div>
+
+<div class="timeline-text">
+Церемония бракосочетания
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-time">
+16:30
+</div>
+
+<div class="timeline-text">
+Банкет и праздничный вечер
+</div>
+
+</div>
+
+<div class="timeline-item">
+
+<div class="timeline-time">
+22:30
+</div>
+
+<div class="timeline-text">
+Финал
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =====================================
+DRESS CODE
+===================================== -->
+
 <section class="section fade">
 
 <div class="container">
 
 <div class="card">
 
-<h2 class="section-title">Детали</h2>
+<h2 class="section-title">
+
+Dress Code
+
+</h2>
 
 <p class="section-subtitle">
 
-Самым главным подарком для нас станет Ваше присутствие в этот день.
+Мы не хотим Вас ограничивать
+и не устанавливаем строгий дресс-код.
 
 <br><br>
 
-Если Вы захотите дополнить поздравление цветами, будем рады, если вместо букета Вы выберете другой знак внимания — после праздника нас ждёт поездка, поэтому мы не успеем долго наслаждаться красотой цветов. Например, приятным дополнением может стать сертификат в «Золотое Яблоко» или бутылочка для нашего будущего семейного бара.
+Выбирайте образ,
+в котором Вам будет
+комфортно
+и красиво.
 
 <br><br>
 
-Пожалуйста, обратите внимание, что отдельная детская анимация на празднике не предусмотрена. На территории комплекса также есть водоёмы, поэтому просим внимательно присматривать за детьми.
+Особенно приятно видеть спокойные
+пастельные оттенки,
+но это совсем не обязательно.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =====================================
+DETAILS
+===================================== -->
+
+<section class="section fade">
+
+<div class="container">
+
+<div class="card">
+
+<h2 class="section-title">
+
+Детали
+
+</h2>
+
+<p class="section-subtitle">
+
+Самым главным подарком
+для нас станет
+Ваше присутствие
+в этот день.
+
+<br><br>
+
+Если Вы захотите дополнить поздравление цветами,
+будем рады,
+если вместо букета
+Вы выберете другой знак внимания —
+после праздника нас ждёт поездка,
+поэтому мы не успеем долго наслаждаться красотой цветов.
+
+<br><br>
+
+Например,
+приятным дополнением может стать
+сертификат
+в «Золотое Яблоко»
+или бутылочка
+для нашего будущего семейного бара.
+
+<br><br>
+
+Пожалуйста,
+обратите внимание,
+что отдельная детская анимация
+на празднике
+не предусмотрена.
+
+На территории комплекса
+также есть водоёмы,
+поэтому просим внимательно
+присматривать за детьми.
 
 </p>
 
 <br>
 
-<h3 class="section-title" style="font-size:40px;">Важная информация</h3>
+<h3
+class="section-title"
+style="font-size:40px;">
+
+Важная информация
+
+</h3>
 
 <p class="section-subtitle">
-Нам очень важно разделить этот день вместе с Вами. Если Ваши планы изменятся и Вы не сможете присутствовать на торжестве, пожалуйста, сообщите нам об этом до 24 сентября 2026 года. Мы будем Вам очень благодарны.
+
+Нам очень важно разделить этот день вместе с Вами.
+
+Если Ваши планы изменятся
+и Вы не сможете присутствовать
+на торжестве,
+пожалуйста,
+сообщите нам об этом
+до 24 сентября 2026 года.
+
+Мы будем Вам очень благодарны.
 
 <br><br>
 
-Если Вы будете приезжать из другого города и Вам потребуется размещение в Зеленокумске, не переживайте — сообщите нам заранее, и мы обязательно поможем с проживанием.
+Если Вы будете приезжать
+из другого города
+и Вам потребуется размещение
+в Зеленокумске,
+не переживайте —
+сообщите нам заранее,
+и мы обязательно
+поможем с проживанием.
+
 </p>
 
 </div>
@@ -251,20 +450,27 @@ target="_blank">
 </div>
 
 </section>
+<!-- =====================================
+ORGANIZER
+===================================== -->
 
-<!-- ORGANIZER (НЕ ТРОГАЛ) -->
 <section class="section fade">
 
 <div class="container">
 
 <div class="card organizer">
 
-<h2 class="section-title">Организатор</h2>
+<h2 class="section-title">
+Организатор
+</h2>
 
 <p class="section-subtitle">
+
 В этот день мы будем заняты,
 поэтому по всем вопросам
-можно обращаться к организатору
+Вы можете обратиться
+к нашему организатору.
+
 </p>
 
 <div class="organizer-name">
@@ -273,9 +479,22 @@ target="_blank">
 
 <div class="organizer-buttons">
 
-<a class="button" href="tel:+79887552209">Позвонить</a>
+<a
+class="button"
+href="tel:+79887552209">
 
-<a class="button" href="https://t.me/emelyanenko_wed" target="_blank">Telegram</a>
+Позвонить
+
+</a>
+
+<a
+class="button"
+href="https://t.me/emelyanenko_wed"
+target="_blank">
+
+Telegram
+
+</a>
 
 </div>
 
@@ -285,12 +504,19 @@ target="_blank">
 
 </section>
 
-<!-- RSVP (ОСТАВЛЯЕМ ДЛЯ ЭТАПА 2) -->
-<section class="section fade">
+<!-- =====================================
+RSVP
+===================================== -->
+
+<section class="section fade" id="rsvp">
 
 <div class="container">
 
-<h2 class="section-title">Анкета гостя</h2>
+<h2 class="section-title">
+
+Анкета гостя
+
+</h2>
 
 <div class="form-wrapper">
 
@@ -298,16 +524,23 @@ target="_blank">
 
 <form id="weddingForm">
 
-<div style="text-align:center;">
-<p class="section-subtitle">
+<p
+class="section-subtitle"
+style="text-align:center;">
+
 Загрузка анкеты...
+
 </p>
-</div>
 
 </form>
 
-<div id="successMessage" class="success-message hidden">
-Ваш ответ отправлен. Ждём Вас на нашем празднике ❤️
+<div
+id="successMessage"
+class="success-message hidden">
+
+Ваш ответ отправлен.
+Ждём Вас на нашем празднике ❤️
+
 </div>
 
 </div>
@@ -318,11 +551,22 @@ target="_blank">
 
 </section>
 
+<!-- =====================================
+FOOTER
+===================================== -->
+
 <footer class="footer">
-С любовью, Николай & Елизавета
+
+С любовью,
+
+<br><br>
+
+Николай & Елизавета
+
 </footer>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
