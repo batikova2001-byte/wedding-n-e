@@ -123,7 +123,7 @@ async function loadGuest(){
 
     }
 
-   if (currentGuest.answered) {
+if (currentGuest.answered) {
 
     lockFormFinal();
 
@@ -133,13 +133,15 @@ async function loadGuest(){
 
 }
 
-  catch(error){
+}
+
+catch(error){
 
     console.error(error);
 
     showNeutralInvitation();
 
-  }
+}
 
 }
 
@@ -343,6 +345,18 @@ attendance.addEventListener("change",()=>{
 if(attendance.value==="Нет"){
 
 attendanceFields.style.display="none";
+  
+document.getElementById("transfer").value = "";
+
+document.getElementById("childrenSelect").value = "Нет";
+
+document.getElementById("childrenCount").value = 1;
+
+document
+.querySelectorAll(".checkbox-group input")
+.forEach(el => el.checked = false);
+
+document.getElementById("allergy").value = "";
 
 }else{
 
