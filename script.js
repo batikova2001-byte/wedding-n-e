@@ -123,17 +123,15 @@ async function loadGuest(){
 
     }
 
-    if(currentGuest.answered){
+   if (currentGuest.answered) {
 
-      lockFormFinal();
+    lockFormFinal();
 
-      return;
-
-    }
+} else {
 
     renderRSVPForm();
 
-  }
+}
 
   catch(error){
 
@@ -145,16 +143,28 @@ async function loadGuest(){
 
 }
 
-function showNeutralInvitation(){
+function showNeutralInvitation() {
 
-  const greeting=document.getElementById("guestGreeting");
+    const greeting = document.getElementById("guestGreeting");
 
-  if(greeting){
+    if (greeting) {
 
-    greeting.innerHTML=
-      "Мы будем счастливы видеть Вас";
+        greeting.textContent =
+            "Мы будем счастливы видеть Вас";
 
-  }
+    }
+
+    const form = document.getElementById("weddingForm");
+
+    if (form) {
+
+        form.innerHTML = `
+            <p class="section-subtitle" style="text-align:center;">
+                Не удалось загрузить анкету гостя.
+            </p>
+        `;
+
+    }
 
 }
 
@@ -300,6 +310,18 @@ type="submit"
 `;
 
   initRSVPEvents();
+
+const attendance = document.getElementById("attendance");
+
+if (attendance) {
+    attendance.dispatchEvent(new Event("change"));
+}
+
+const children = document.getElementById("childrenSelect");
+
+if (children) {
+    children.dispatchEvent(new Event("change"));
+}
 
 }
 /* =====================================
