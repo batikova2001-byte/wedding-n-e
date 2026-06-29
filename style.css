@@ -4,199 +4,457 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 font-family:'Montserrat',sans-serif;
 background:#f8f4ef;
 color:#2f2b28;
 overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale;
+}
+
+img{
+max-width:100%;
+display:block;
 }
 
 .hidden{
 display:none;
 }
 
+/* =========================
+   HERO + OVERLAY
+========================= */
+
 .overlay,
 .hero{
+
 background:
 linear-gradient(
-rgba(248,244,239,0.55),
-rgba(248,244,239,0.75)
+rgba(248,244,239,.55),
+rgba(248,244,239,.75)
 ),
-url('image.png');
+url("image.png");
 
 background-size:cover;
 background-position:center;
 background-repeat:no-repeat;
+
 }
 
 .overlay{
+
 position:fixed;
+
 inset:0;
-z-index:9999;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 flex-direction:column;
-transition:1s;
+
+z-index:9999;
+
+transition:opacity .9s ease,
+visibility .9s ease;
+
 }
 
 .overlay.hide{
+
 opacity:0;
+
 visibility:hidden;
+
+pointer-events:none;
+
 }
 
 .overlay-text{
+
 margin-bottom:30px;
-letter-spacing:3px;
+
 font-size:12px;
+
+letter-spacing:3px;
+
 text-transform:uppercase;
+
+text-align:center;
+
+padding:0 20px;
+
+line-height:1.8;
+
 }
 
 .heart-button{
+
 width:110px;
+
 height:110px;
-border-radius:50%;
+
 border:none;
+
+border-radius:50%;
+
 cursor:pointer;
-background:rgba(255,255,255,0.45);
-backdrop-filter:blur(10px);
-font-size:40px;
+
+background:rgba(255,255,255,.45);
+
+backdrop-filter:blur(12px);
+
+font-size:42px;
+
+transition:.35s;
+
+}
+
+.heart-button:hover{
+
+transform:scale(1.08);
+
 }
 
 .music-button{
+
 position:fixed;
+
 right:20px;
+
 bottom:20px;
-z-index:999;
+
 width:60px;
+
 height:60px;
+
 border:none;
+
 border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
 background:white;
+
+font-size:22px;
+
 cursor:pointer;
+
+z-index:999;
+
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+transition:.3s;
+
 }
 
+.music-button:hover{
+
+transform:scale(1.08);
+
+}
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
-height:100vh;
+
+min-height:100vh;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 text-align:center;
-padding:20px;
+
+padding:40px 20px;
+
 }
 
 .hero-content{
+
 max-width:900px;
+
+width:100%;
+
 }
 
 .subtitle{
-letter-spacing:4px;
-margin-bottom:20px;
+
 font-size:12px;
+
+letter-spacing:4px;
+
 text-transform:uppercase;
+
+margin-bottom:20px;
+
 }
 
 .hero h1{
+
 font-family:'Cormorant Garamond',serif;
+
 font-size:110px;
+
 font-weight:400;
-line-height:0.95;
-margin-bottom:20px;
-}
 
-.date{
-font-size:24px;
+line-height:.95;
+
 margin-bottom:30px;
+
 }
 
-.guest-title{
-font-size:22px;
-margin-bottom:40px;
-}
+/* фото героев уменьшено примерно на 15% */
 
-.countdown{
+.hero-image{
+
 display:flex;
+
 justify-content:center;
-gap:20px;
-flex-wrap:wrap;
+
+margin-top:30px;
+
 }
 
-.count-item{
-width:120px;
-height:120px;
-border-radius:50%;
-background:rgba(255,255,255,0.45);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+.hero-image img{
+
+width:min(366px,66vw);
+
+height:auto;
+
 }
 
-.count-number{
-font-size:42px;
-font-family:'Cormorant Garamond',serif;
-}
+/* =========================
+   COMMON
+========================= */
 
 .section{
+
 padding:120px 20px;
+
 }
 
 .container{
+
 max-width:1100px;
+
 margin:auto;
+
 }
 
 .section-title{
+
 font-family:'Cormorant Garamond',serif;
+
 font-size:60px;
+
 font-weight:400;
+
 text-align:center;
+
 margin-bottom:40px;
+
 }
 
 .section-subtitle{
+
 max-width:760px;
+
 margin:auto;
+
 text-align:center;
-line-height:1.9;
+
 font-size:17px;
+
+line-height:1.9;
+
 }
 
 .card{
-background:rgba(255,255,255,0.6);
+
+background:rgba(255,255,255,.6);
+
+backdrop-filter:blur(12px);
+
 border-radius:30px;
+
 padding:60px;
-backdrop-filter:blur(10px);
+
+transition:.3s;
+
 }
 
+.card:hover{
+
+transform:translateY(-4px);
+
+}
+
+.date{
+
+font-size:24px;
+
+text-align:center;
+
+margin-bottom:30px;
+
+}
+
+.guest-title{
+
+font-size:22px;
+
+text-align:center;
+
+margin-bottom:40px;
+
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.countdown{
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.count-item{
+
+width:120px;
+
+height:120px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.45);
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+backdrop-filter:blur(8px);
+
+}
+
+.count-number{
+
+font-family:'Cormorant Garamond',serif;
+
+font-size:42px;
+
+}
+
+.count-label{
+
+margin-top:5px;
+
+font-size:13px;
+
+text-transform:uppercase;
+
+letter-spacing:1px;
+
+}
+
+/* =========================
+   LOCATION
+========================= */
+
 .location-card{
+
 display:block;
+
 position:relative;
+
 overflow:hidden;
+
 border-radius:30px;
+
 margin-top:30px;
+
 text-decoration:none;
+
 color:white;
+
 }
 
 .location-card img{
+
 width:100%;
+
 display:block;
+
+object-fit:cover;
+
+transition:transform .6s ease;
+
+}
+
+.location-card:hover img{
+
+transform:scale(1.03);
+
 }
 
 .location-overlay{
+
 position:absolute;
+
 inset:0;
-background:rgba(0,0,0,0.3);
+
+background:rgba(0,0,0,.28);
+
 display:flex;
+
 flex-direction:column;
+
 justify-content:flex-end;
+
 padding:30px;
+
 }
 
 .location-name{
-font-size:42px;
+
 font-family:'Cormorant Garamond',serif;
+
+font-size:42px;
+
+}
+
+.location-address{
+
+margin-top:5px;
+
+font-size:18px;
+
 }
 
 .timeline{
@@ -238,10 +496,32 @@ font-size:15px;
 font-family:inherit;
 }
 
+/* ---------- Checkbox ---------- */
+
 .checkbox-group{
-display:grid;
-gap:10px;
+display:flex;
+flex-direction:column;
+gap:14px;
 margin-top:15px;
+}
+
+.checkbox-group label{
+display:flex;
+align-items:center;
+gap:12px;
+cursor:pointer;
+font-size:16px;
+line-height:1.4;
+}
+
+.checkbox-group input[type="checkbox"]{
+width:18px;
+height:18px;
+padding:0;
+margin:0;
+flex-shrink:0;
+accent-color:#8f7f71;
+cursor:pointer;
 }
 
 .button{
@@ -361,63 +641,4 @@ flex-direction:column;
 text-align:center;
 }
 
-}
-/* =========================
-   PREMIUM REVEAL ANIMATION
-========================= */
-
-.fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease, transform 1s ease;
-  will-change: opacity, transform;
-}
-
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* мягкий stagger эффект для внутренних элементов */
-.section-title,
-.section-subtitle,
-.timeline-item,
-.card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-}
-
-.show .section-title,
-.show .section-subtitle,
-.show .timeline-item,
-.show .card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* задержки для "дорогого" ощущения */
-.show .section-title { transition-delay: 0.1s; }
-.show .section-subtitle { transition-delay: 0.2s; }
-.show .card { transition-delay: 0.3s; }
-.show .timeline-item { transition-delay: 0.15s; }
-
-/* hover micro-interactions */
-.card:hover {
-  transform: translateY(-4px);
-  transition: 0.3s ease;
-}
-
-.timeline-item:hover {
-  transform: scale(1.02);
-  transition: 0.3s ease;
-}
-
-/* location image polish */
-.location-card img {
-  transition: transform 0.6s ease;
-}
-
-.location-card:hover img {
-  transform: scale(1.03);
 }
