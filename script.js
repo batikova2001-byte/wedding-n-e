@@ -582,3 +582,25 @@ function initScrollReveal() {
 }
 
 initScrollReveal();
+/* =====================================
+   AUTO STOP MUSIC
+===================================== */
+
+document.addEventListener("visibilitychange", () => {
+
+    if (!audio) return;
+
+    if (document.hidden) {
+        audio.pause();
+    }
+
+});
+
+window.addEventListener("pagehide", () => {
+
+    if (!audio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
+
+});
