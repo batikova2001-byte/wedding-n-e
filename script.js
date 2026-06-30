@@ -118,8 +118,10 @@ async function loadGuest(){
 
     if(greeting){
 
-      greeting.innerHTML=
-      "Дорогие <strong>"+currentGuest.displayName+"</strong>";
+      const greetingWord = getGuestGreeting(currentGuest.slug);
+
+greeting.innerHTML =
+`${greetingWord} <strong>${currentGuest.displayName}</strong>`;
 
     }
 
@@ -169,7 +171,38 @@ function showNeutralInvitation() {
     }
 
 }
+/* =====================================
+   GUEST GREETING
+===================================== */
 
+function getGuestGreeting(slug) {
+
+    const femaleGuests = [
+        "yana",
+        "elena",
+        "viktoriya",
+        "tatyana",
+        "elizaveta"
+    ];
+
+    const maleGuests = [
+        "evgeniy",
+        "sergey",
+        "maksim",
+        "egor",
+        "nikolay"
+    ];
+
+    if (femaleGuests.includes(slug)) {
+        return "Дорогая";
+    }
+
+    if (maleGuests.includes(slug)) {
+        return "Дорогой";
+    }
+
+    return "Дорогие";
+}
 loadGuest();
 
 /* =========================
