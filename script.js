@@ -183,7 +183,9 @@ function getGuestGreeting(slug) {
         "viktoriya",
         "tatyana",
         "elizaveta",
-        "viktoriyaO"
+        "viktoriyaO",
+        "elizaveta2",
+        "valentina"
     ];
 
     const maleGuests = [
