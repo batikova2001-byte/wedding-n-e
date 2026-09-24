@@ -195,7 +195,8 @@ function getGuestGreeting(slug) {
         "egor",
         "viktor",
         "maksim_k",
-        "leonid"
+        "leonid",
+        "alexandr"
     ];
 
     if (femaleGuests.includes(slug)) {
